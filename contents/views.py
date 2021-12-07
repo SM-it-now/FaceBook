@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.views.generic import DetailView
 
 from .models import Article
 
@@ -16,15 +17,13 @@ class NewsFeedView(TemplateView):
         return context
 
 
-class NewsFeedDetailView(TemplateView):
+class NewsFeedDetailView(DetailView):
     model = Article
     template_name = 'detail_feed.html'
 
     def get_context_data(self, **kwargs):
         context = super(NewsFeedDetailView, self).get_context_data(**kwargs)
 
-        user = self.request.user
-
-        context['feed_detail'] = Article.objects.all()
+        context['feed'] = Article.objects.all()
 
         return context

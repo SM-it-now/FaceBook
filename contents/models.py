@@ -18,7 +18,7 @@ class Article(BaseModel):
     text = models.TextField()
 
     def __str__(self):
-        return self.author
+        return self.title
 
     def get_absolute_url(self):
         return f'/{self.pk}/'
