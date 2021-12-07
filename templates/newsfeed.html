@@ -97,15 +97,17 @@
         <div class="btn2"><img src="/static/ic_info.jpg" width="22px" style="margin:9px 13px 0 0"></div>
     </div>
     <div class="container">
+        {% for feed in feeds %}
         <div class="feed">
-            <h3 class="name">이름</h3>
-            <div class="date">날짜</div>
-            <a class="title">글 제목</a>
-            <p class="content">글 내용</p>
+            <h3 class="name">{{ feed.author }}</h3>
+            <a href="{{ feed.get_absolute_url }}"><div class="date">{{ feed.title }}</div></a>
+            <a class="title">{{ feed.text }}</a>
+            <p class="content">{{ feed.created_at }}</p>
             <div class="accessory">
                 <img src="/static/ic_like.jpg" width="16px"> Like <img src="/static/ic_comment.jpg" width="16px"> Comments
             </div>
         </div>
+        {% endfor %}
     </div>
     <div class="footer">
         <div class="tab1"><img src="/static/ic_feed.jpg" width="22px" style="margin-top: 15px"> </div>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<div>
+    ID: <input type="text" , name="username" id="username">
+</div>
+<div>
+    EMAIL : <input type="email" , name="email" , id="email">
+</div>
+<div>
+    PW : <input type="password" name="password" id="password">
+</div>
+<input type="submit" id="button" value="sign up">
+</body>
+
+
+<!--Jquery 3.4.1-->
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+    $('#button').click(function() {
+        $.post('/apis/v1/users/create/', {'username': $('#username').val(), 'email': $('#email').val(), 'password': $('#password').val()}, function() {
+            alert('회원가입을 축하합니다.');
+            window.reload;
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+});
+});
+
+</script>
+</html>

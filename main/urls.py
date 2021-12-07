@@ -14,11 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
-from contents.views import NewsFeedView
+from contents.views import NewsFeedView, NewsFeedDetailView
+
+
+class NonUserTemplateView(TemplateView):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_anonymous:
+            return redirect('newsfeed')
+        return super(NonUserTemplateView, self).dispatch(request, *args, **kwargs)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('apis/', include('apis.urls')),
     path('', NewsFeedView.as_view(), name='newsfeed'),
+    path('<int:pk>/', NewsFeedDetailView.as_view(), name='feed_detail'),
+
+    path('register/', NonUserTemplateView.as_view(template_name='register.html'), name='register'),
 ]
+
