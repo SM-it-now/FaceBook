@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from contents.models import Article
 
@@ -45,6 +46,7 @@ class UserCreateView(BaseView):
 
 
 # article create
+@method_decorator(login_required, name='dispatch')
 class FeedCreateView(BaseView):
     def post(self, request):
         author = self.request.user
