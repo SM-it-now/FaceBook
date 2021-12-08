@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
+
+from contents.models import Article
 
 
 # Create your views here.
@@ -40,6 +42,27 @@ class UserCreateView(BaseView):
             return self.response(message='이미 존재하는 아이디입니다.', status=400)
 
         return self.response({'user.id': user.id})
+
+
+# article create
+class FeedCreateView(BaseView):
+    def post(self, request):
+        author = self.request.user
+        title = request.POST.get('title', '').strip()
+        if not title:
+            return self.response(message='제목을 입력해주세요.', status=400)
+
+        text = request.POST.get('text', '').strip()
+        if not text:
+            return self.response(message='내용을 입력해주세요.', status=400)
+
+        Article.objects.create(
+            author=author,
+            title=title,
+            text=text
+        )
+
+        return self.response({})
 
 
 

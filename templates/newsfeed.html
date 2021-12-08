@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>뉴스피드</title>
+
 </head>
 
 <body>
@@ -90,7 +91,7 @@
         }
     </style>
     <div class="header">
-        <div class="btn1"><img src="/static/ic_pencil.jpg" width="22px" style="margin:9px 0 0 13px"></div>
+        <a href="{% url 'feed_create' %}"><div class="btn1"><img src="/static/ic_pencil.jpg" width="22px" style="margin:9px 0 0 13px"></div></a>
         <div class="search">
             <input type="text" class="searchbar" placeholder="Search">
         </div>
@@ -99,9 +100,9 @@
     <div class="container">
         {% for feed in feeds %}
         <div class="feed">
-            <h3 class="name">{{ feed.author }}</h3>
+            <a href="#"><h3 class="name">{{ feed.author }}</h3></a>
             <a href="{{ feed.get_absolute_url }}"><div class="date">{{ feed.title }}</div></a>
-            <a class="title">{{ feed.text }}</a>
+            <a class="title" href="{{ feed.get_absolute_url }}">{{ feed.text }}</a>
             <p class="content">{{ feed.created_at }}</p>
             <div class="accessory">
                 <img src="/static/ic_like.jpg" width="16px"> Like <img src="/static/ic_comment.jpg" width="16px"> Comments

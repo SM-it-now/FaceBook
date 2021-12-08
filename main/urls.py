@@ -18,7 +18,8 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 
-from contents.views import NewsFeedView, NewsFeedDetailView
+from contents.views import NewsFeedView, NewsFeedDetailView, FeedCreate
+from apis.views import FeedCreateView
 
 
 class NonUserTemplateView(TemplateView):
@@ -34,6 +35,10 @@ urlpatterns = [
     path('', NewsFeedView.as_view(), name='newsfeed'),
     path('<int:pk>/', NewsFeedDetailView.as_view(), name='feed_detail'),
 
+    # user
     path('register/', NonUserTemplateView.as_view(template_name='register.html'), name='register'),
+
+    # feed
+    path('feed/create/', FeedCreate.as_view(), name='feed_create'),
 ]
 

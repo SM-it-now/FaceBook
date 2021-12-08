@@ -6,6 +6,7 @@ from .models import Article
 
 
 # Create your views here.
+# 메인화면
 class NewsFeedView(TemplateView):
     template_name = 'newsfeed.html'
 
@@ -17,13 +18,20 @@ class NewsFeedView(TemplateView):
         return context
 
 
+# 상세화면
 class NewsFeedDetailView(DetailView):
     model = Article
-    template_name = 'detail_feed.html'
+    template_name = 'feed_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(NewsFeedDetailView, self).get_context_data(**kwargs)
 
-        context['feed'] = Article.objects.all()
+        user = self.request.user
+
+        context['feed'] = Article.objects.select_related('user').filter(author=user)
 
         return context
+
+
+class FeedCreate(TemplateView):
+    template_name = 'feed_create.html'
