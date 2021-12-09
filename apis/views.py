@@ -69,7 +69,9 @@ class FeedCreateView(BaseView):
 
 @method_decorator(login_required, name='dispatch')
 class FeedUpdateView(BaseView):
+
     def post(self, request):
+
         title = request.POST.get('title', '').strip()
         if not title:
             return self.response(message='제목을 입력해주세요.', status=400)
@@ -78,10 +80,11 @@ class FeedUpdateView(BaseView):
         if not text:
             return self.response(message='제목을 입력해주세요.', status=400)
 
-        article = Article.objects.filter(title=self.title, text=self.text).update(
+        article = Article.objects.filter().update(
             title=title,
             text=text
         )
+
         article.save()
 
         return self.response({})
