@@ -117,6 +117,11 @@
         <div class="date">{{ article.created_at }}</div>
         <span class="title">{{ article.title }}</span>
         <p class="content">{{ article.text }}</p>
+        <br>
+        <div>
+            <a href="{% url 'feed_update' article.id %}"><img src="/static/ic_edit.png" height="16px"></a>
+            <a href="#"><img src="/static/ic_delete.png" height="16px"></a>
+        </div>
         <div class="accessory">
             <img src="/static/ic_like.jpg" width="16px"> Like <span class="comments"><img src="/static/ic_comment.jpg" width="16px"> Comments</span>
         </div>

@@ -18,8 +18,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 
-from contents.views import NewsFeedView, NewsFeedDetailView, FeedCreate
-from apis.views import FeedCreateView
+from contents.views import NewsFeedView, NewsFeedDetailView, FeedCreate, FeedUpdate
 
 
 class NonUserTemplateView(TemplateView):
@@ -40,5 +39,6 @@ urlpatterns = [
 
     # feed
     path('feed/create/', FeedCreate.as_view(), name='feed_create'),
-]
+    path('<int:pk>/update/', FeedUpdate.as_view(), name='feed_update'),
 
+]

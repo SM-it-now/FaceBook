@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, UpdateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from .models import Article
+from django import forms
 
 
 # Create your views here.
@@ -33,5 +36,23 @@ class NewsFeedDetailView(DetailView):
         return context
 
 
+# 뉴스피드 생성화면
+@method_decorator(login_required, name='dispatch')
 class FeedCreate(TemplateView):
     template_name = 'feed_create.html'
+
+
+# 뉴스피드 수정 화면
+@method_decorator(login_required, name='dispatch')
+class FeedUpdate(UpdateView):
+    model = Article
+    fields = [
+        'title', 'text'
+    ]
+    template_name = 'feed_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FeedUpdate, self).get_context_data(**kwargs)
+
+        return context
+
