@@ -47,8 +47,9 @@
     <h3>게시물 수정하기</h3>
     <input type="text" name="title" id="title" value="{{ form.title.value }}"><br>
     <textarea name="text" id="text">{{ form.text.value }}</textarea><br>
+    <input type="hidden" name="pk" id="pk" value="{{ article.id }}">
     <button type="submit" id="buttonUpdate">
-        <a href="{% url 'apis_v1_feed_update' %}">올리기</a>
+        수정하기
     </button>
 </div>
 </body>
@@ -60,9 +61,9 @@
 <script>
     $(document).ready(function () {
     $('#buttonUpdate').click(function() {
-        $.post('/apis/v1/feed/update/', {'title': $('#title').val(), 'text': $('#text').val()}, function() {
-            alert('게시글을 올렸습니다.');
-            window.location = '/';
+        $.post('/apis/v1/feed/update/', {'title': $('#title').val(), 'text': $('#text').val(), 'pk': $('#pk').val()}, function() {
+            alert('게시글을 수정하였습니다.');
+            window.location = '{% url 'feed_detail' article.id %}';
         }).fail(function(data) {
             alert(data.responseJSON.message);
         });

@@ -120,7 +120,9 @@
         <br>
         <div>
             <a href="{% url 'feed_update' article.id %}"><img src="/static/ic_edit.png" height="16px"></a>
-            <a href="#"><img src="/static/ic_delete.png" height="16px"></a>
+            <a id="deleteButton"><img src="/static/ic_delete.png" height="16px">
+                <input type="hidden" name="pk" id="pk" value="{{ article.id }}">
+            </a>
         </div>
         <div class="accessory">
             <img src="/static/ic_like.jpg" width="16px"> Like <span class="comments"><img src="/static/ic_comment.jpg" width="16px"> Comments</span>
@@ -134,5 +136,24 @@
     <div class="tab4"><img src="/static/ic_etc.jpg" width="20px" style="margin-top: 14px"></div>
 </div>
 </body>
+
+<!--Jquery 3.4.1-->
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+    $('#deleteButton').click(function() {
+        $.post('/apis/v1/feed/delete/', {'pk': $('#pk').val()}, function() {
+            alert('게시글을 삭제하였습니다.');
+            window.location = '{% url 'newsfeed' %}';
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+});
+});
+
+
+</script>
 
 </html>

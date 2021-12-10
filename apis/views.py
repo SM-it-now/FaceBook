@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
@@ -6,6 +6,7 @@ from django.utils.decorators import method_decorator
 from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.validators import ValidationError
 
 from contents.models import Article
 
@@ -69,27 +70,35 @@ class FeedCreateView(BaseView):
 
 @method_decorator(login_required, name='dispatch')
 class FeedUpdateView(BaseView):
-
     def post(self, request):
 
-        title = request.POST.get('title', '').strip()
-        if not title:
-            return self.response(message='제목을 입력해주세요.', status=400)
+        article_id = request.POST.get('pk', False)
+        title = request.POST.get('title', '')
+        text = request.POST.get('text', '')
 
-        text = request.POST.get('text', '').strip()
-        if not text:
-            return self.response(message='제목을 입력해주세요.', status=400)
-
-        article = Article.objects.filter().update(
+        Article.objects.filter(pk=article_id).update(
             title=title,
             text=text
         )
 
-        article.save()
-
         return self.response({})
 
 
+@method_decorator(login_required, name='dispatch')
+class FeedDeleteView(BaseView):
+    def post(self, request):
+        try:
+            article_id = request.POST.get('pk', False)
+        except ValidationError:
+            return self.response(message='잘못된 요청입니다.', status=400)
 
+        try:
+            article = Article.objects.filter(pk=article_id)
+        except Article.DoesNotExist:
+            return self.response(message='잘못된 요청입니다.', status=400)
+
+        article.delete()
+
+        return self.response({})
 
 
