@@ -32,3 +32,6 @@ class Page(BaseModel):
 
     def __str__(self):
         return '{} : {}'.format(self.name, self.master)
+
+    def get_absolute_url(self):
+        return f'/{self.pk}/'

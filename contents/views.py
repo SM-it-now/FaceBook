@@ -4,8 +4,7 @@ from django.views.generic import DetailView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from .models import Article
-from django import forms
+from .models import Article, Page
 
 
 # Create your views here.
@@ -57,5 +56,25 @@ class FeedUpdate(UpdateView):
         return context
 
 
+class PageView(TemplateView):
+    template_name = 'page.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(PageView, self).get_context_data(**kwargs)
+
+        user = self.request.user
+
+        context['pages'] = Page.objects.all()
+
+        return context
+
+
+class PageDetailView(DetailView):
+    template_name = 'page_detail.html'
+    model = Page
+
+    def get_context_data(self, **kwargs):
+        context = super(PageDetailView, self).get_context_data(**kwargs)
+
+        return context
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 
 <head>
     <meta charset="utf-8">
-    <title>뉴스피드</title>
+    <title>페이지</title>
 
 </head>
 
@@ -64,12 +64,13 @@
             float: left;
             width: 25%;
         }
-        .feed {
+        .page {
             background-color: #ffffff;
             border-top: 1px solid #c0c0c0;
             border-bottom: 1px solid #c0c0c0;
             margin: 7px 0;
             padding: 12px;
+
         }
         .date {
             color: #999;
@@ -98,20 +99,17 @@
         <div class="btn2"><img src="/static/ic_info.jpg" width="22px" style="margin:9px 13px 0 0"></div>
     </div>
     <div class="container">
-        {% for feed in feeds %}
-        <div class="feed">
-            <a href="#"><h3 class="name">{{ feed.author }}</h3></a>
-            <a href="{{ feed.get_absolute_url }}"><div class="date">{{ feed.title }}</div></a>
-            <a class="title" href="{{ feed.get_absolute_url }}">{{ feed.text }}</a>
-            <p class="content">{{ feed.created_at }}</p>
-            <div class="accessory">
-                <img src="/static/ic_like.jpg" width="16px"> Like <img src="/static/ic_comment.jpg" width="16px"> Comments
-            </div>
+        {% for page in pages %}
+        <div class="page">
+            <a href="#"><h3 class="name">{{ page.master }}</h3></a>
+            <a href="{% url 'page_detail' page.id %}"><div class="date">{{ page.name }}</div></a>
+            <a class="title" href="{% url 'page_detail' page.id %}">{{ page.text }}</a>
+            <p class="content">{{ page.created_at }}</p>
         </div>
         {% endfor %}
     </div>
     <div class="footer">
-        <div class="tab1"><a href="{% url 'newsfeed'%}"></a><img src="/static/ic_feed.jpg" width="22px" style="margin-top: 15px"></a></div>
+        <div class="tab1"><a href="{% url 'newsfeed' %}"><img src="/static/ic_feed.jpg" width="22px" style="margin-top: 15px"></a></div>
         <div class="tab2"><img src="/static/ic_person.jpg" width="20px" style="margin-top: 14px"></div>
         <div class="tab3"><a href="{% url 'page' %}"><img src="/static/ic_globe.jpg" width="20px" style="margin-top: 14px"></a></div>
         <div class="tab4"><img src="/static/ic_etc.jpg" width="20px" style="margin-top: 14px"></div>

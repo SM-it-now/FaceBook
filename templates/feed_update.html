@@ -42,15 +42,18 @@
 
 
 
+
 </style>
-<div>
-    <h3>게시물 수정하기</h3>
-    <input type="text" name="title" id="title" value="{{ form.title.value }}"><br>
-    <textarea name="text" id="text">{{ form.text.value }}</textarea><br>
-    <input type="hidden" name="pk" id="pk" value="{{ article.id }}">
-    <button type="submit" id="buttonUpdate">
-        수정하기
-    </button>
+<div class="container">
+    <div class="form-box">
+        <h3>게시물 수정하기</h3>
+        <input class="input_field" type="text" name="title" id="title" value="{{ form.title.value }}"><br>
+        <textarea class="textarea_field" name="text" id="text">{{ form.text.value }}</textarea><br>
+        <input type="hidden" name="pk" id="pk" value="{{ article.id }}">
+        <button class="write_button" type="submit" id="buttonUpdate">
+            수정하기
+        </button>
+    </div>
 </div>
 </body>
 
@@ -69,6 +72,7 @@
         });
 });
 });
+
 
 
 
