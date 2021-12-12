@@ -85,3 +85,21 @@ class PageDetailView(DetailView):
 class PageCreate(TemplateView):
     template_name = 'page_create.html'
 
+
+# 페이지 수정화면
+@method_decorator(login_required, name='dispatch')
+class PageUpdate(UpdateView):
+    template_name = 'page_update.html'
+    model = Page
+    fields = [
+        'master',
+        'name',
+        'text'
+    ]
+
+    def get_context_data(self, **kwargs):
+        context = super(PageUpdate, self).get_context_data(**kwargs)
+        # self.kwargs['pk']를 통해서 url에서 pk값을 받을 수 있습니다.
+        # url은 `path('<pk>/', PhotoView.as_view())으로 구현되어있어서 해당 pk 부분을 받아옵니다.`
+        # context['page_id'] = Page.objects.filter(page_id=self.kwargs['pk'])
+        return context

@@ -18,7 +18,8 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 
-from contents.views import NewsFeedView, NewsFeedDetailView, FeedCreate, FeedUpdate, PageView, PageDetailView, PageCreate
+from contents.views import NewsFeedView, NewsFeedDetailView, FeedCreate, FeedUpdate
+from contents.views import PageView, PageDetailView, PageCreate, PageUpdate
 
 
 
@@ -41,9 +42,11 @@ urlpatterns = [
     path('<int:pk>/', NewsFeedDetailView.as_view(), name='feed_detail'),
     path('feed/create/', FeedCreate.as_view(), name='feed_create'),
     path('<int:pk>/update/', FeedUpdate.as_view(), name='feed_update'),
+    # feed delete --> api로 추가함.
 
     # page
     path('pages/', PageView.as_view(), name='page'),
     path('pages/<int:pk>/', PageDetailView.as_view(), name='page_detail'),
     path('pages/create/', PageCreate.as_view(), name='page_create'),
+    path('pages/<int:pk>/update/', PageUpdate.as_view(), name='page_update'),
 ]

@@ -126,3 +126,20 @@ class PageCreateView(BaseView):
         )
 
         return self.response({})
+
+
+# page update api
+class PageUpdateView(BaseView):
+    def post(self, request):
+        pk = request.POST.get('pk', False)
+        master = request.POST.get('master', '')
+        name = request.POST.get('name', '')
+        text = request.POST.get('text', '')
+
+        Page.objects.filter(pk=pk).update(
+            master=master,
+            name=name,
+            text=text
+        )
+
+        return self.response({})

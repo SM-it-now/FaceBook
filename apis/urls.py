@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import UserCreateView
-from .views import FeedCreateView, FeedUpdateView, FeedDeleteView, PageCreateView
+from .views import FeedCreateView, FeedUpdateView, FeedDeleteView, PageCreateView, PageUpdateView
 
 # api url
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
 
     # Page
     path('v1/page/create/', PageCreateView.as_view(), name='apis_v1_page_create'),
+    path('v1/page/update/', PageUpdateView.as_view(), name='apis_v1_page_update'),
 ]
