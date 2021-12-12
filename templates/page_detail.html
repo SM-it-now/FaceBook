@@ -120,9 +120,9 @@
         <br>
         <div>
             <a href="{% url 'page_update' page.id%}"><img src="/static/ic_edit.png" height="16px"></a>
-            <a id="deleteButton"><img src="/static/ic_delete.png" height="16px">
+            <button id="deleteButton"><img src="/static/ic_delete.png" height="16px">
                 <input type="hidden" name="pk" id="pk" value="{{ page.id }}">
-            </a>
+            </button>
         </div>
         <div class="accessory">
             <img src="/static/ic_like.jpg" width="16px"> Like <span class="comments"><img src="/static/ic_comment.jpg" width="16px"> Comments</span>
@@ -141,19 +141,19 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
 
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--    $('#deleteButton').click(function() {-->
-<!--        $.post('/apis/v1/feed/delete/', {'pk': $('#pk').val()}, function() {-->
-<!--            alert('게시글을 삭제하였습니다.');-->
-<!--            window.location = '{% url 'newsfeed' %}';-->
-<!--        }).fail(function(data) {-->
-<!--            alert(data.responseJSON.message);-->
-<!--        });-->
-<!--});-->
-<!--});-->
+<script>
+    $(document).ready(function () {
+    $('#deleteButton').click(function() {
+        $.post('/apis/v1/page/delete/', {'pk': $('#pk').val()}, function() {
+            alert('페이지를 삭제하였습니다.');
+            window.location = '{% url 'page' %}';
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+});
+});
 
 
-<!--</script>-->
+</script>
 
 </html>

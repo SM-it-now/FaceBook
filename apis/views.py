@@ -143,3 +143,21 @@ class PageUpdateView(BaseView):
         )
 
         return self.response({})
+
+
+# page delete api
+class PageDeleteView(BaseView):
+    def post(self, request):
+        try:
+            page_id = request.POST.get('pk', False)
+        except ValidationError:
+            return self.response(message='잘못된 요청입니다.', status=400)
+
+        try:
+            page = Page.objects.filter(pk=page_id)
+        except Page.DoesNotExist:
+            return self.response(message='잘못된 요청입니다.', status=400)
+
+        page.delete()
+
+        return self.response({})
