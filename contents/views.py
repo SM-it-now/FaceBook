@@ -56,6 +56,7 @@ class FeedUpdate(UpdateView):
         return context
 
 
+# 페이지 목록 화면
 class PageView(TemplateView):
     template_name = 'page.html'
 
@@ -69,6 +70,7 @@ class PageView(TemplateView):
         return context
 
 
+# 페이지 상세화면
 class PageDetailView(DetailView):
     template_name = 'page_detail.html'
     model = Page
@@ -77,4 +79,9 @@ class PageDetailView(DetailView):
         context = super(PageDetailView, self).get_context_data(**kwargs)
 
         return context
+
+
+# 페이지 생성화면
+class PageCreate(TemplateView):
+    template_name = 'page_create.html'
 

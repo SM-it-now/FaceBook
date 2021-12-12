@@ -18,7 +18,8 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 
-from contents.views import NewsFeedView, NewsFeedDetailView, FeedCreate, FeedUpdate, PageView, PageDetailView
+from contents.views import NewsFeedView, NewsFeedDetailView, FeedCreate, FeedUpdate, PageView, PageDetailView, PageCreate
+
 
 
 class NonUserTemplateView(TemplateView):
@@ -43,5 +44,6 @@ urlpatterns = [
 
     # page
     path('pages/', PageView.as_view(), name='page'),
-    path('pages/<int:pk>/',PageDetailView.as_view(), name='page_detail'),
+    path('pages/<int:pk>/', PageDetailView.as_view(), name='page_detail'),
+    path('pages/create/', PageCreate.as_view(), name='page_create'),
 ]

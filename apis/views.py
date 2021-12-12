@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.validators import ValidationError
 
-from contents.models import Article
+from contents.models import Article, Page
 
 
 # Create your views here.
@@ -46,7 +46,7 @@ class UserCreateView(BaseView):
         return self.response({'user.id': user.id})
 
 
-# article create
+# article create api
 @method_decorator(login_required, name='dispatch')
 class FeedCreateView(BaseView):
     def post(self, request):
@@ -68,10 +68,10 @@ class FeedCreateView(BaseView):
         return self.response({})
 
 
+# 뉴스피스 수정 api
 @method_decorator(login_required, name='dispatch')
 class FeedUpdateView(BaseView):
     def post(self, request):
-
         article_id = request.POST.get('pk', False)
         title = request.POST.get('title', '')
         text = request.POST.get('text', '')
@@ -84,6 +84,7 @@ class FeedUpdateView(BaseView):
         return self.response({})
 
 
+# 뉴스피드 삭제 api
 @method_decorator(login_required, name='dispatch')
 class FeedDeleteView(BaseView):
     def post(self, request):
@@ -102,3 +103,26 @@ class FeedDeleteView(BaseView):
         return self.response({})
 
 
+# 페이지 생성 api
+@method_decorator(login_required, name='dispatch')
+class PageCreateView(BaseView):
+    def post(self, request):
+        master = request.POST.get('master', '')
+        if not master:
+            return self.response(message='채널주인을 입력해주세요.', status=400)
+
+        name = request.POST.get('name', '')
+        if not name:
+            return self.response(message='채널명을 입력해주세요.', status=400)
+
+        text = request.POST.get('text', '')
+        if not text:
+            return self.response(message='내용을 입력해주세요.', status=400)
+
+        Page.objects.create(
+            master=master,
+            name=name,
+            text=text
+        )
+
+        return self.response({})
