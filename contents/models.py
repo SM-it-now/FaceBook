@@ -35,3 +35,13 @@ class Page(BaseModel):
 
     def get_absolute_url(self):
         return f'/{self.pk}/'
+
+
+# 댓글 모델
+class Comment(BaseModel):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    text = models.TextField()
+
+    def __str__(self):
+        return '{} : {}({})'.format(self.article, self.text, self.author)
