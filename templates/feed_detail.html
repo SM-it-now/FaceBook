@@ -102,6 +102,7 @@
 
 
 
+
 </style>
 <!--end feed detail-->
 
@@ -168,6 +169,7 @@
 
 
 
+
 </style>
 <!--end comment detail-->
 
@@ -196,15 +198,18 @@
 <div class="comment_list">
     {% for comment in comments %}
     <div class="comment"><span class="name">{{ comment.author }} </span>{{ comment.text }}</div>
-    <div class=“comment__date" style="padding-left: 20px;">{{ comment.created_at }} <a href="코멘트삭제주소"><img
-            src="/static/ic_delete.png" height="16px"></a></div>
+    <div class=“comment__date" style="padding-left: 20px;">{{ comment.created_at }}
+        <button type="submit" id="commentDelete">
+            <img src="/static/ic_delete.png" height="16px">
+            <input type="hidden" id="comment_id" value="{{comment.id}}">
+        </button>
+    </div>
     {% endfor %}
     <div class="form-wrapper">
         <span>Comments</span>
         <textarea name="text" id="text" name="text" placeholder="코멘트 내용"></textarea>
         <input type="hidden" id="article_id" value="{{article.id}}">
-        <input type="hidden" id="comment_id" value="{{comment.id}}">
-        <button type="submit" id="commentButton" type="submit">등록</button>
+        <button type="submit" id="commentButton">등록</button>
     </div>
 </div>
 
@@ -225,13 +230,22 @@
 });
     $('#commentButton').click(function() {
         $.post('/apis/v1/comment/create/', {'text': $('#text').val(), 'article_id': $('#article_id').val()}, function() {
-            alert('댓글 생성하였습니다.');
+            alert('댓글을 생성하였습니다.');
+            window.location.reload();
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+});
+    $('#commentDelete').click(function() {
+        $.post('/apis/v1/comment/delete/', {'comment_id': $('#comment_id').val()}, function() {
+            alert('댓글을 삭제하였습니다.');
             window.location.reload();
         }).fail(function(data) {
             alert(data.responseJSON.message);
         });
 });
 });
+
 
 </script>
 {% endblock %}
