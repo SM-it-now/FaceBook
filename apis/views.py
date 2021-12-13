@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.validators import ValidationError
 
-from contents.models import Article, Page
+from contents.models import Article, Page, Comment
 
 
 # Create your views here.
@@ -159,5 +159,23 @@ class PageDeleteView(BaseView):
             return self.response(message='잘못된 요청입니다.', status=400)
 
         page.delete()
+
+        return self.response({})
+
+
+# comment create
+class CommentCreateView(BaseView):
+    def post(self, request):
+        article_id = request.POST.get('article_id', False)
+        article = Article.objects.get(pk=article_id)
+        text = request.POST.get('text', '').strip()
+        if not text:
+            return self.response(message='댓글을 입력해주세요.', status=400)
+
+        Comment.objects.create(
+            author=self.request.user,
+            article=article,
+            text=text
+        )
 
         return self.response({})

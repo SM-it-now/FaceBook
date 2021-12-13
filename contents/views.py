@@ -4,7 +4,7 @@ from django.views.generic import DetailView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from .models import Article, Page
+from .models import Article, Page, Comment
 
 
 # Create your views here.
@@ -31,6 +31,10 @@ class NewsFeedDetailView(DetailView):
         user = self.request.user
 
         context['feed'] = Article.objects.select_related('user').filter(author=user)
+
+        context['comments'] = Comment.objects.filter(
+            article_id=self.kwargs['pk']
+        )
 
         return context
 
