@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>생성하기</title>
-</head>
-<body>
+{% extends 'base/base_feed.html' %}
+
+{% block content %}
 <style>
     .form_box {
     background-color: #ffffff;
@@ -38,14 +34,35 @@
     padding: 2px 8px;
     font-size: 18px;
 }
-
-
-
-
-
+ .footer {
+            border-top: 1px solid #cccccc;
+            background-color: #fafafa;
+            height: 50px;
+            text-align: center;
+            position:fixed; bottom: 0; left: 0; right: 0;
+        }
+        .tab1 {
+            float: left;
+            width: 25%;
+        }
+        .tab2 {
+            float: left;
+            width: 25%;
+        }
+        .tab3 {
+            float: left;
+            width: 25%;
+        }
+        .tab4 {
+            float: left;
+            width: 25%;
+        }
 </style>
+<div>
+    <a href="{% url 'feed_detail' article.id %}">뒤로가기</a>
+</div>
 <div class="container">
-    <div class="form-box">
+    <div class="form_box">
         <h3>게시물 수정하기</h3>
         <input class="input_field" type="text" name="title" id="title" value="{{ form.title.value }}"><br>
         <textarea class="textarea_field" name="text" id="text">{{ form.text.value }}</textarea><br>
@@ -55,12 +72,11 @@
         </button>
     </div>
 </div>
-</body>
+{% include 'base/footer.html' %}
 
-<!--Jquery 3.4.1-->
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
+{% endblock %}
 
+{% block script %}
 <script>
     $(document).ready(function () {
     $('#buttonUpdate').click(function() {
@@ -72,6 +88,7 @@
         });
 });
 });
-</script>
 
-</html>
+
+</script>
+{% endblock %}

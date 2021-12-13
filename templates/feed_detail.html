@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base/base_feed.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <title>뉴스피드</title>
-</head>
-<body>
+{% block content %}
+
 <style>
     body { background-color: #d7d8dc; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -104,13 +100,9 @@
         text-decoration: none;
     }
 </style>
-<div class="header">
-    <div class="btn1"><img src="/static/ic_pencil.jpg" width="22px" style="margin:9px 0 0 13px"></div>
-    <div class="search">
-        <input type="text" class="searchbar" placeholder="Search">
-    </div>
-    <div class="btn2"><img src="/static/ic_info.jpg" width="22px" style="margin:9px 13px 0 0"></div>
-</div>
+
+{% include 'base/nav_feed.html' %}
+
 <div class="container">
     <div class="feed">
         <h3 class="name">{{ article.author }}</h3>
@@ -129,18 +121,12 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="tab1"><img src="/static/ic_feed.jpg" width="22px" style="margin-top: 15px"></div>
-    <div class="tab2"><img src="/static/ic_person.jpg" width="20px" style="margin-top: 14px"></div>
-    <div class="tab3"><img src="/static/ic_globe.jpg" width="20px" style="margin-top: 14px"></div>
-    <div class="tab4"><img src="/static/ic_etc.jpg" width="20px" style="margin-top: 14px"></div>
-</div>
-</body>
 
-<!--Jquery 3.4.1-->
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
+{% include 'base/footer.html' %}
 
+{% endblock %}
+
+{% block script %}
 <script>
     $(document).ready(function () {
     $('#deleteButton').click(function() {
@@ -153,5 +139,4 @@
 });
 });
 </script>
-
-</html>
+{% endblock %}

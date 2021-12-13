@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>생성하기</title>
-</head>
-<body>
+{% extends 'base/base_feed.html' %}
+
+{% block content %}
 <style>
     .form_box {
     background-color: #ffffff;
@@ -39,21 +35,23 @@
     font-size: 18px;
 }
 
+
 </style>
 <div>
-    <h3>게시물 올리기</h3>
-    <input type="text" name="title" id="title" placeholder="제목을 입력해주세요."><br>
-    <textarea name="text" id="text" placeholder="내용을 입력해주세요."></textarea><br>
-    <button type="submit" id="buttonFeed">
-        <a href="{% url 'apis_v1_feed_create' %}">올리기</a>
-    </button>
+    <a href="{% url 'newsfeed' %}">뒤로가기</a>
 </div>
-</body>
+<div class="container">
+    <div class="form_box">
+        <h3>게시물 올리기</h3>
+        <input type="text" class="input_field" name="title" id="title" placeholder="제목을 입력해주세요."><br>
+        <textarea class="textarea_field" name="text" id="text" placeholder="내용을 입력해주세요."></textarea><br>
+        <button type="submit" id="buttonFeed">올리기</button>
+    </div>
+</div>
+{% endblock %}
 
-<!--Jquery 3.4.1-->
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
 
+{% block script %}
 <script>
     $(document).ready(function () {
     $('#buttonFeed').click(function() {
@@ -66,7 +64,5 @@
 });
 });
 
-
 </script>
-
-</html>
+{% endblock %}

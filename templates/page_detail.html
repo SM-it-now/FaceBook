@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base/base_feed.html' %}지
 
-<head>
-    <meta charset="utf-8">
-    <title>채널</title>
-</head>
-<body>
+{% block title %}페이지{% endblock %}
+
+{% block content %}
+
 <style>
     body { background-color: #d7d8dc; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -129,18 +127,12 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="tab1"><img src="/static/ic_feed.jpg" width="22px" style="margin-top: 15px"></div>
-    <div class="tab2"><img src="/static/ic_person.jpg" width="20px" style="margin-top: 14px"></div>
-    <div class="tab3"><img src="/static/ic_globe.jpg" width="20px" style="margin-top: 14px"></div>
-    <div class="tab4"><img src="/static/ic_etc.jpg" width="20px" style="margin-top: 14px"></div>
-</div>
-</body>
 
-<!--Jquery 3.4.1-->
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
+{% include 'base/footer.html' %}
 
+{% endblock %}
+
+{% block script %}
 <script>
     $(document).ready(function () {
     $('#deleteButton').click(function() {
@@ -152,8 +144,6 @@
         });
 });
 });
-
-
 </script>
 
-</html>
+{% endblock %}
