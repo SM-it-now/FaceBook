@@ -44,4 +44,4 @@ class Comment(BaseModel):
     text = models.TextField()
 
     def __str__(self):
-        return '{} : {}({})'.format(self.article, self.text, self.author)
+        return '{} : {}({}){}'.format(self.article.title, self.text, self.author, self.pk)

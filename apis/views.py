@@ -184,15 +184,12 @@ class CommentCreateView(BaseView):
 # comment delete
 class CommentDeleteView(BaseView):
     def post(self, request):
-        comment_id = request.POST.get('comment_id', '')
+        comment_id = request.POST.get('comment_id', False)
 
         try:
             comment = Comment.objects.get(pk=comment_id)
         except Comment.DoesNotExist:
             return self.response(message='잘못된 요청입니다.', status=400)
-
-        if not self.request.user == comment:
-            return self.response(message='삭제권한이 없습니다.')
 
         comment.delete()
 
