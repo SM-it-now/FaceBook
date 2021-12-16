@@ -13,9 +13,12 @@ class BaseModel(models.Model):
 
 # 게시글 모델
 class Article(BaseModel):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_article')
     title = models.CharField(max_length=200)
     text = models.TextField()
+
+    # Like
+    like = models.ManyToManyField(User, related_name='like_article', null=True, blank=True)
 
     def __str__(self):
         return self.title

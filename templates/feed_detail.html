@@ -104,6 +104,11 @@
 
 
 
+
+
+
+
+
 </style>
 <!--end feed detail-->
 
@@ -191,8 +196,13 @@
             </a>
         </div>
         <div class="accessory">
-            <img src="/static/ic_like.jpg" width="16px"> Like <span class="comments"><img src="/static/ic_comment.jpg"
-                                                                                          width="16px"> Comments</span>
+            {{ article.like.count }}
+            <img src="/static/ic_like.jpg" width="16px">
+            <input type="hidden" id="like" name="like" value="{{ article.id }}">
+            <input type="submit" id="likeButton" value="Like">
+            <span class="comments"><img
+                src="/static/ic_comment.jpg"
+                width="16px"> Comments</span>
         </div>
     </div>
 </div>
@@ -205,9 +215,9 @@
     </div>
     <div class=“comment__date" style="padding-left: 20px;">{{ comment.created_at }}
         <input type="hidden" id="comment_id" name="comment_id" value="{{comment.id}}">
-        <button type="submit" id="commentDelete">
+        <a type="submit" id="commentDelete">
             <img src="/static/ic_delete.png" height="16px">
-        </button>
+        </a>
     </div>
     {% endfor %}
     <div class="form-wrapper">
@@ -249,6 +259,15 @@
             alert(data.responseJSON.message);
         });
 });
+    $('#likeButton').click(function() {
+        $.post('/apis/v1/like/', {'like': $('#like').val()}, function() {
+            alert('좋아요를 하였습니다.');
+            window.location.reload();
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
 });
+});
+
 </script>
 {% endblock %}

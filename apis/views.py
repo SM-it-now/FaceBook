@@ -181,7 +181,7 @@ class CommentCreateView(BaseView):
         return self.response({})
 
 
-# comment delete
+# comment delete api
 class CommentDeleteView(BaseView):
     def post(self, request):
         comment_id = request.POST.get('comment_id', False)
@@ -194,4 +194,16 @@ class CommentDeleteView(BaseView):
         comment.delete()
 
         return self.response({})
+
+
+# like api
+class LikeView(BaseView):
+    def post(self, request):
+        article_id = request.POST.get('like', False)
+        article = Article.objects.get(pk=article_id)
+
+        article.like.add(self.request.user)
+
+        return self.response({})
+
 

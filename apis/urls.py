@@ -2,6 +2,7 @@ from django.urls import path
 from .views import UserCreateView
 from .views import FeedCreateView, FeedUpdateView, FeedDeleteView, PageCreateView, PageUpdateView, PageDeleteView
 from .views import CommentCreateView, CommentDeleteView
+from .views import LikeView
 
 # api url
 urlpatterns = [
@@ -20,4 +21,8 @@ urlpatterns = [
     # Comment
     path('v1/comment/create/', CommentCreateView.as_view(), name='apis_v1_comment_create'),
     path('v1/comment/delete/', CommentDeleteView.as_view(), name='apis_v1_comment_delete'),
+
+    # Like
+    path('v1/like/', LikeView.as_view(), name='apis_v1_like'),
 ]
+
