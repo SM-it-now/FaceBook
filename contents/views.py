@@ -107,3 +107,8 @@ class PageUpdate(UpdateView):
         # url은 `path('<pk>/', PhotoView.as_view())으로 구현되어있어서 해당 pk 부분을 받아옵니다.`
         # context['page_id'] = Page.objects.filter(page_id=self.kwargs['pk'])
         return context
+
+
+# 팔로우 화면
+class RelationView(TemplateView):
+    pass

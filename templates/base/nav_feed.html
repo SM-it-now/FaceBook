@@ -1,7 +1,19 @@
 <div class="header">
-    <div class="btn1"><a href="{% url 'feed_create' %}"><img src="/static/ic_pencil.jpg" width="22px" style="margin:9px 0 0 13px"></a></div>
+    <div class="btn1"><a href="{% url 'feed_create' %}"><img src="/static/ic_pencil.jpg" width="22px"
+                                                             style="margin:9px 0 0 13px"></a></div>
     <div class="search">
         <input type="text" class="searchbar" placeholder="Search">
     </div>
+    {% if user.is_authenticated %}
+    <div class="user">
+        {{ user.username }}
+        <a href="#">(logout)</a>
+    </div>
+    {% else %}
+    <div class="user">
+        NonUser
+        <a href="{% url 'login' %}">(login)</a>
+    </div>
+    {% endif %}
     <div class="btn2"><img src="/static/ic_info.jpg" width="22px" style="margin:9px 13px 0 0"></div>
 </div>

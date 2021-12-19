@@ -27,6 +27,7 @@ class BaseView(View):
 
 
 # sign up
+@method_decorator(login_required, name='dispatch')
 class UserCreateView(BaseView):
     def post(self, request):
         username = request.POST.get('username', '')
@@ -67,10 +68,7 @@ class UserLoginView(BaseView):
         return self.response()
 
 
-
-
 # article create api
-@method_decorator(login_required, name='dispatch')
 class FeedCreateView(BaseView):
     def post(self, request):
         author = self.request.user

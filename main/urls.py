@@ -50,4 +50,5 @@ urlpatterns = [
     path('pages/<int:pk>/', PageDetailView.as_view(), name='page_detail'),
     path('pages/create/', PageCreate.as_view(), name='page_create'),
     path('pages/<int:pk>/update/', PageUpdate.as_view(), name='page_update'),
+
 ]
