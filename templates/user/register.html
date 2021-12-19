@@ -1,0 +1,47 @@
+{% extends 'base/user_base.html' %}
+
+{% block content %}
+<div id="register">
+    <div class="container">
+        <br>
+        <h3 class="d-flex justify-content-center text-danger text-danger">Sign Up</h3>
+        <div class="form-group col-md-6">
+            <label for="username" class="text-danger">Username:</label><br>
+            <input type="text" name="username" id="username" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="email" class="text-danger">Email:</label><br>
+            <input type="email" name="email" id="email" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="password" class="text-danger">Password:</label><br>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <br>
+        <div class="form-group col-md-6">
+            <div class="row">
+                <input type="submit" id="registerButton" class="form-control btn btn-danger" value="Sign Up">
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<!--회원가입 스크립트-->
+<script>
+    $(document).ready(function () {
+    $('#registerButton').click(function() {
+        $.post('/apis/v1/users/create/', {'username': $('#username').val(), 'email': $('#email').val(), 'password': $('#password').val()}, function() {
+            alert('회원가입을 축하합니다.');
+            window.location = '{% url 'login' %};
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+});
+});
+
+
+</script>
+{% endblock %}

@@ -20,6 +20,9 @@ class Article(BaseModel):
     # Like
     like = models.ManyToManyField(User, related_name='like_article', null=True, blank=True)
 
+    class Meta:
+        ordering = ['-created_at']
+
     def __str__(self):
         return self.title
 
@@ -48,3 +51,9 @@ class Comment(BaseModel):
 
     def __str__(self):
         return '{} : {}({}){}'.format(self.article.title, self.text, self.author, self.pk)
+
+
+# 피드 저장
+class Storage(BaseModel):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+

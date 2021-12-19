@@ -7,6 +7,7 @@ from django.db import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.validators import ValidationError
+from django.contrib.auth import authenticate, login, logout
 
 from contents.models import Article, Page, Comment
 
@@ -39,11 +40,33 @@ class UserCreateView(BaseView):
         email = request.POST.get('email', '')
 
         try:
-            user = User.objects.create(username, email, password)
+            user = User.objects.create_user(username, email, password)
         except IntegrityError:
             return self.response(message='이미 존재하는 아이디입니다.', status=400)
 
         return self.response({'user.id': user.id})
+
+
+# login
+class UserLoginView(BaseView):
+    def post(self, request):
+        username = request.POST.get('username', '')
+        if not username:
+            return self.response(message='아이디를 입력해주세요.', status=400)
+
+        password = request.POST.get('password', '')
+        if not password:
+            return self.response(message='비밀번호를 입력해주세요.', status=400)
+
+        user = authenticate(request, username=username, password=password)
+        if not user:
+            return self.response(message='아이디 또는 비밀번호가 일치하지 않습니다.', status=400)
+
+        login(request, user)
+
+        return self.response()
+
+
 
 
 # article create api

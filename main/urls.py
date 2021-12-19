@@ -35,7 +35,8 @@ urlpatterns = [
     path('apis/', include('apis.urls')),
 
     # user
-    path('register/', NonUserTemplateView.as_view(template_name='register.html'), name='register'),
+    path('register/', NonUserTemplateView.as_view(template_name='user/register.html'), name='register'),
+    path('login/', NonUserTemplateView.as_view(template_name='user/login.html'), name='login'),
 
     # feed
     path('', NewsFeedView.as_view(), name='newsfeed'),
